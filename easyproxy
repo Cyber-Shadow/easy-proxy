@@ -1,0 +1,32 @@
+#!/bin/bash
+touch ~/.bashrc
+cp ~/.bashrc ~/.bashrc.backup
+
+rm_proxy () {
+    echo Removing Proxy Settings from .bashrc
+    sed -i '/^export http_proxy=/d' ~/.bashrc
+    sed -i '/^export https_proxy=/d' ~/.bashrc
+    sed -i '/^export ftp_proxy=/d' ~/.bashrc
+    sed -i '/^export no_proxy=/d' ~/.bashrc
+}
+
+echo 1. Set Proxy 2. Remove Proxy
+read pChoice
+
+if [ $pChoice -eq 1 ]; then
+    rm_proxy
+    echo Enter Username \(john.smith1\)
+    read pUsername
+    echo Enter Password
+    read pPassword
+
+    fullproxy="http://$pUsername:$pPassword@proxy.det.nsw.edu.au:8080/"
+
+    echo "export http_proxy=$fullproxy" >> ~/.bashrc
+    echo "export https_proxy=$fullproxy" >> ~/.bashrc
+    echo "export ftp_proxy=$fullproxy" >> ~/.bashrc
+    echo "export no_proxy=\"localhost,127.0.0.1,localaddress,.localdomain.com\"" >> ~/.bashrc
+
+elif [ $pChoice -eq 2 ]; then
+    rm_proxy
+fi
