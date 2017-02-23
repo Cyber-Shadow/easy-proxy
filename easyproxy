@@ -10,6 +10,13 @@ rm_proxy () {
     sed -i '/^export no_proxy=/d' ~/.bashrc
 }
 
+mk_nullproxy () {
+  echo "export http_proxy=''" >> ~/.bashrc
+  echo "export https_proxy=''" >> ~/.bashrc
+  echo "export ftp_proxy=''" >> ~/.bashrc
+  echo "export no_proxy=''" >> ~/.bashrc
+}
+
 echo 1. Set Proxy 2. Remove Proxy
 read pChoice
 
@@ -18,7 +25,7 @@ if [ $pChoice -eq 1 ]; then
     echo Enter Username \(john.smith1\)
     read pUsername
     echo Enter Password
-    read pPassword
+    read -s pPassword
 
     fullproxy="http://$pUsername:$pPassword@proxy.det.nsw.edu.au:8080/"
 
@@ -29,4 +36,5 @@ if [ $pChoice -eq 1 ]; then
 
 elif [ $pChoice -eq 2 ]; then
     rm_proxy
+    mk_nullproxy
 fi
