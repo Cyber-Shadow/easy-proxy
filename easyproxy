@@ -37,4 +37,5 @@ if [ $pChoice -eq 1 ]; then
 elif [ $pChoice -eq 2 ]; then
     rm_proxy
     mk_nullproxy
+    bash
 fi
